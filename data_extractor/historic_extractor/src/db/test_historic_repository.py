@@ -1,6 +1,7 @@
 from .historic_repository import HistoricRepository
 import pandas as pd
 
+'''Test insert df into tb_historico'''
 def test_01():
     historic_repository = HistoricRepository()
 

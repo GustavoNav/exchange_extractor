@@ -2,7 +2,7 @@ import pandas as pd
 from .transform import TransformData
 
 
-'''test transformation'''
+'''Test transformation'''
 def test_01():
     transform_data = TransformData()
 
@@ -18,7 +18,7 @@ def test_01():
     transform_data.transform(df, 'PTR4.SA')
 
 
-'''test wrong type'''
+'''Test wrong type'''
 def test_02():
     transform_data = TransformData()
 

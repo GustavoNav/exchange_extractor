@@ -57,4 +57,4 @@ class HistoricRepository:
             print("Error inserting data: ", e)
         finally:
             if conn:
-                conn.close()  # Close the connection
+                conn.close()

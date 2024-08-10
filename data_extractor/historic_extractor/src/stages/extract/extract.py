@@ -1,4 +1,3 @@
-import pandas as pd
 from src.drive.api_requester import ApiRequester
 from src.errors.extract_error import ExtractError
 

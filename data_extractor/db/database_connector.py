@@ -1,5 +1,4 @@
-import pandas as pd
-from sqlalchemy import create_engine, MetaData
+from sqlalchemy import create_engine
 
 class DatabaseConnector:
     engine = None

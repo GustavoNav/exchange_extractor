@@ -1,8 +1,8 @@
-import pandas as pd
 from .api_requester import ApiRequester
 
+'''Test result of extraction'''
 def test_request_01():
-    '''result of extraction'''
+
     api_requester = ApiRequester()
 
     company_code = "PETR4.SA"

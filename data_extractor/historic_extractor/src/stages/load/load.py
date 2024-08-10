@@ -2,7 +2,7 @@ from data_extractor.historic_extractor.src.db.historic_repository import Histori
 from data_extractor.historic_extractor.src.errors.load_error import LoadError
 
 class LoadData:
-
+    '''Insert dataframe into Database'''
     def load(self, df):
         try:
             HistoricRepository.insert_historic(df)

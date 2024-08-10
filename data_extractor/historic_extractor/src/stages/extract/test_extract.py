@@ -1,8 +1,8 @@
 from .extract import HistoricExtractor
 import pandas as pd
 
+'''Test normal case'''
 def test_extract_01():
-    '''Test normal case'''
     historic_extractor = HistoricExtractor()
 
     df = historic_extractor.extract("PETR4.SA")
@@ -11,8 +11,8 @@ def test_extract_01():
     print(df.columns)
     print(df)
 
+'''Test empty index'''
 def test_extract_02():
-    '''Test empty index'''
     historic_extractor = HistoricExtractor()
 
     df = historic_extractor.extract("412")
