@@ -3,6 +3,7 @@ from data_extractor.general_information_extractor.src.drive.html_finder import H
 from data_extractor.general_information_extractor.src.errors.extract_error import ExtractError
 
 class GeneralExtractor:
+    '''a class for extract the essential information from the HTML'''
     def __init__(self) -> None:
         self.__http_requester = HttpRequester()
         self.__html_finder = HtmlFinder()

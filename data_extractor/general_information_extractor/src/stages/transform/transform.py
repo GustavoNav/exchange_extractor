@@ -2,6 +2,7 @@ from data_extractor.general_information_extractor.src.errors.transform_error imp
 import re
 
 class TransformInformation:
+    '''Transform the essential information, getting the required data'''
     def transform(self, essential_data):
         
         essential_information = essential_data['essential_information']

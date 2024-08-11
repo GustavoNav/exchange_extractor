@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 
 class HtmlFinder:
-    '''A simple class for collecting the essential information from the '''
+    '''A class for collecting the essential information from the html '''
 
     def find_essential_html(self, data):
         soup = BeautifulSoup(data['html'], 'html.parser')
