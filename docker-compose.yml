@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: myPostgresDB
+    environment:
+      POSTGRES_USER: adm
+      POSTGRES_PASSWORD: adm321
+      POSTGRES_DB: postgresDB
+    ports:
+      - "5455:5432"
+    networks:
+      - my-network
+
+  app:
+    build:
+      context: ./data_extractor
+      dockerfile: Dockerfile
+    container_name: my-extractor
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: "postgresql://adm:adm321@postgres:5432/postgresDB"
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge

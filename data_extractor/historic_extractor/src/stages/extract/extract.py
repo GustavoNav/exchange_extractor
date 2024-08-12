@@ -1,5 +1,5 @@
-from src.drive.api_requester import ApiRequester
-from src.errors.extract_error import ExtractError
+from historic_extractor.src.drive.api_requester import ApiRequester
+from historic_extractor.src.errors.extract_error import ExtractError
 
 class HistoricExtractor:
     '''execute data extraction'''

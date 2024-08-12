@@ -1,5 +1,5 @@
-from data_extractor.historic_extractor.src.db.historic_repository import HistoricRepository
-from data_extractor.historic_extractor.src.errors.load_error import LoadError
+from historic_extractor.src.db.historic_repository import HistoricRepository
+from historic_extractor.src.errors.load_error import LoadError
 
 class LoadData:
     '''Insert dataframe into Database'''

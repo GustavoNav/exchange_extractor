@@ -1,6 +1,6 @@
-from data_extractor.historic_extractor.src.stages.extract.extract import HistoricExtractor
-from data_extractor.historic_extractor.src.stages.transform.transform import TransformData
-from data_extractor.historic_extractor.src.stages.load.load import LoadData
+from historic_extractor.src.stages.extract.extract import HistoricExtractor
+from historic_extractor.src.stages.transform.transform import TransformData
+from historic_extractor.src.stages.load.load import LoadData
 
 class MainPipeline:
     def __init__(self) -> None:

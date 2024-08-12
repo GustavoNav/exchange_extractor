@@ -1,4 +1,4 @@
-from data_extractor.db.database_connector import DatabaseConnector
+from db.database_connector import DatabaseConnector
 from sqlalchemy import text
 
 class HistoricRepository:
@@ -13,7 +13,7 @@ class HistoricRepository:
                 for index, row in df.iterrows():
                     conn.execute(
                         text('''
-                            INSERT INTO tb_historico (
+                            INSERT INTO tb_historic (
                                 date_information,
                                 open,
                                 high,

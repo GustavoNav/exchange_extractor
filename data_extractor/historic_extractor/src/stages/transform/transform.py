@@ -1,5 +1,5 @@
 import pandas as pd
-from src.errors.transform_error import TransformError
+from historic_extractor.src.errors.transform_error import TransformError
 
 class TransformData:
     '''Transform extracted data'''
