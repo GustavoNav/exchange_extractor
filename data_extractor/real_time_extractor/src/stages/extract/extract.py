@@ -2,6 +2,7 @@ from data_extractor.real_time_extractor.src.drive.api_requester import ApiReques
 from data_extractor.real_time_extractor.src.errors.extract_error import ExtractError
 
 class ExtractRealTime:
+    '''class to execute the extraction, using api requester.'''
     def __init__(self) -> None:
         self.__api_requester = ApiRequester()
 

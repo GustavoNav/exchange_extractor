@@ -5,6 +5,7 @@ from data_extractor.general_information_extractor.src.stages.load.load import Lo
 
 class MainPipeline:
     def __init__(self) -> None:
+        '''class to run the general information extractor'''
         self.__general_extractor = GeneralExtractor()
         self.__transform_information = TransformInformation()
         self.__load_data = LoadData()

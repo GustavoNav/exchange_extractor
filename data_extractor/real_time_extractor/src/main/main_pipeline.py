@@ -3,6 +3,7 @@ from data_extractor.real_time_extractor.src.stages.transform.transform import Tr
 from data_extractor.real_time_extractor.src.stages.load.load import LoadData
 
 class MainPipeline:
+    '''class to run the real time extractor'''
     def __init__(self) -> None:
         self.__extract_real_time = ExtractRealTime()
         self.__transform_data = TransformData()

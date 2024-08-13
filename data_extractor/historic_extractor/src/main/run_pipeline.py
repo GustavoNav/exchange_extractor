@@ -4,6 +4,7 @@ from historic_extractor.src.stages.load.load import LoadData
 
 class MainPipeline:
     def __init__(self) -> None:
+        '''class to run the historc extractor'''
         self.__historic_extractor = HistoricExtractor()
         self.__transform_data = TransformData()
         self.__load_data = LoadData()

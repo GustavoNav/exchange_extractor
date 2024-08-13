@@ -3,7 +3,7 @@ from data_extractor.real_time_extractor.src.db.real_time_respository import Real
 from data_extractor.real_time_extractor.src.errors.load_error import LoadError
 
 class LoadData():
-    
+    '''Load the pd.Dataframe transformed into Db, using RealTimeRepository.'''
     def load(self, data: pd.DataFrame):
         try:
             RealTimeRepository.insert_real_time(data)
