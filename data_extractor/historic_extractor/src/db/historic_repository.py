@@ -50,7 +50,7 @@ class HistoricRepository:
                         }
                     )
                 transaction.commit()
-                print("Data inserted successfully")
+                print("Data inserted successfully into tb_historic")
         except Exception as e:
             if conn:
                 conn.rollback() 

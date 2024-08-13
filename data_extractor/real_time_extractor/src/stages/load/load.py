@@ -1,6 +1,6 @@
 import pandas as pd
-from data_extractor.real_time_extractor.src.db.real_time_respository import RealTimeRepository
-from data_extractor.real_time_extractor.src.errors.load_error import LoadError
+from real_time_extractor.src.db.real_time_respository import RealTimeRepository
+from real_time_extractor.src.errors.load_error import LoadError
 
 class LoadData():
     '''Load the pd.Dataframe transformed into Db, using RealTimeRepository.'''

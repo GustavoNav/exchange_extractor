@@ -1,4 +1,4 @@
-from data_extractor.real_time_extractor.src.errors.transform_error import TransformError
+from real_time_extractor.src.errors.transform_error import TransformError
 import pandas as pd
 
 class TransformData:

@@ -1,4 +1,4 @@
-CREATE TABLE tb_historic (
+CREATE TABLE IF NOT EXISTS tb_historic (
     id SERIAL PRIMARY KEY,
     date_information TIMESTAMP WITH TIME ZONE,
     open NUMERIC(14, 6),
@@ -12,7 +12,7 @@ CREATE TABLE tb_historic (
     CONSTRAINT unique_historic UNIQUE (date_information, open, high, low, close, volume, dividends, stock_splits, company_code)
 );
 
-CREATE TABLE tb_general_financials (
+CREATE TABLE IF NOT EXISTS tb_general_financials (
     id SERIAL PRIMARY KEY,
     company_code VARCHAR(10) NOT NULL,
     sector VARCHAR(50),
@@ -28,7 +28,7 @@ CREATE TABLE tb_general_financials (
     CONSTRAINT unique_company_code UNIQUE (company_code)
 );
 
-CREATE TABLE tb_real_time(
+CREATE TABLE IF NOT EXISTS tb_real_time(
 	id SERIAL PRIMARY KEY,
 	company_code VARCHAR(10) NOT NULL,
 	date_information TIMESTAMP,

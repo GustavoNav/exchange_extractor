@@ -1,6 +1,6 @@
 from .real_time_respository import RealTimeRepository
-from data_extractor.real_time_extractor.src.stages.extract.extract import ExtractRealTime
-from data_extractor.real_time_extractor.src.stages.transform.transform import TransformData
+from real_time_extractor.src.stages.extract.extract import ExtractRealTime
+from real_time_extractor.src.stages.transform.transform import TransformData
 
 def test_insert_01():
     extract_real_time = ExtractRealTime()

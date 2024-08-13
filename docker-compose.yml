@@ -12,11 +12,14 @@ services:
       - "5455:5432"
     networks:
       - my-network
+    volumes:
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
 
   app:
     build:
       context: ./data_extractor
       dockerfile: Dockerfile
+    image: myapp:1.0
     container_name: my-extractor
     depends_on:
       - postgres

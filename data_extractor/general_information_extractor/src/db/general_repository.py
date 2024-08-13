@@ -1,4 +1,4 @@
-from data_extractor.db.database_connector import DatabaseConnector
+from db.database_connector import DatabaseConnector
 from sqlalchemy import text
 
 class GeneralRepository:
@@ -54,6 +54,7 @@ class GeneralRepository:
                 }
             )
             conn.commit()
+            print("Data inserted successfully into tb_general_financials")
         except Exception as e:
             if conn:
                 conn.rollback() 

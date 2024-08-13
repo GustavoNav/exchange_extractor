@@ -1,6 +1,6 @@
-from data_extractor.general_information_extractor.src.drive.http_requester import HttpRequester
-from data_extractor.general_information_extractor.src.drive.html_finder import HtmlFinder
-from data_extractor.general_information_extractor.src.errors.extract_error import ExtractError
+from general_information_extractor.src.drive.http_requester import HttpRequester
+from general_information_extractor.src.drive.html_finder import HtmlFinder
+from general_information_extractor.src.errors.extract_error import ExtractError
 
 class GeneralExtractor:
     '''a class for extract the essential information from the HTML'''

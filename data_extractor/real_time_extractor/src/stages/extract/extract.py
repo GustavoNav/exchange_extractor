@@ -1,5 +1,5 @@
-from data_extractor.real_time_extractor.src.drive.api_requester import ApiRequester
-from data_extractor.real_time_extractor.src.errors.extract_error import ExtractError
+from real_time_extractor.src.drive.api_requester import ApiRequester
+from real_time_extractor.src.errors.extract_error import ExtractError
 
 class ExtractRealTime:
     '''class to execute the extraction, using api requester.'''

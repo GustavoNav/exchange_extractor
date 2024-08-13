@@ -1,5 +1,5 @@
-from data_extractor.general_information_extractor.src.db.general_repository import GeneralRepository
-from data_extractor.general_information_extractor.src.errors.load_error import LoadError
+from general_information_extractor.src.db.general_repository import GeneralRepository
+from general_information_extractor.src.errors.load_error import LoadError
 
 class LoadData:
     '''Load the information at database'''

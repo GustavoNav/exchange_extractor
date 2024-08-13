@@ -1,5 +1,5 @@
 import argparse
-from data_extractor.real_time_extractor.src.main import main_pipeline
+from real_time_extractor.src.main import main_pipeline
 
 '''run real time pipeline function'''
 def run_real_time_pipeline(company_code):

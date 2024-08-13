@@ -1,4 +1,4 @@
-from data_extractor.general_information_extractor.src.errors.transform_error import TransformError
+from general_information_extractor.src.errors.transform_error import TransformError
 import re
 
 class TransformInformation:

@@ -1,4 +1,4 @@
-from data_extractor.db.database_connector import DatabaseConnector
+from db.database_connector import DatabaseConnector
 from sqlalchemy import text
 
 class RealTimeRepository:
@@ -41,7 +41,7 @@ class RealTimeRepository:
                         }
                     )
                 transaction.commit()
-                print("Data inserted successfully")
+                print("Data inserted successfully into tb_real_time")
         except Exception as e:
             if conn:
                 conn.rollback() 

@@ -1,6 +1,6 @@
-from data_extractor.general_information_extractor.src.stages.extract.extract import GeneralExtractor
-from data_extractor.general_information_extractor.src.stages.transform.transform import TransformInformation
-from data_extractor.general_information_extractor.src.stages.load.load import LoadData
+from general_information_extractor.src.stages.extract.extract import GeneralExtractor
+from general_information_extractor.src.stages.transform.transform import TransformInformation
+from general_information_extractor.src.stages.load.load import LoadData
 
 
 class MainPipeline:

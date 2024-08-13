@@ -1,6 +1,6 @@
-from data_extractor.real_time_extractor.src.stages.extract.extract import ExtractRealTime
-from data_extractor.real_time_extractor.src.stages.transform.transform import TransformData
-from data_extractor.real_time_extractor.src.stages.load.load import LoadData
+from real_time_extractor.src.stages.extract.extract import ExtractRealTime
+from real_time_extractor.src.stages.transform.transform import TransformData
+from real_time_extractor.src.stages.load.load import LoadData
 
 class MainPipeline:
     '''class to run the real time extractor'''
