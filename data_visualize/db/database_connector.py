@@ -7,6 +7,9 @@ class DatabaseConnector:
     @classmethod
     def connect(cls):
         try:
-            cls.engine = create_engine('postgresql://adm:adm321@postgres:5432/postgresDB')
+            cls.engine = create_engine('postgresql://adm:adm321@localhost:5455/postgresDB')
+            cls.conn = cls.engine.connect()
+            return cls.conn
+        
         except Exception as exception:
             print("Database connection error: ", exception)
