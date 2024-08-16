@@ -11,7 +11,7 @@ services:
     ports:
       - "5455:5432"
     networks:
-      - my-network
+      - shared_network
     volumes:
       - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
       - pgdata:/var/lib/postgresql/data
@@ -27,11 +27,11 @@ services:
     environment:
       DATABASE_URL: "postgresql://adm:adm321@postgres:5432/postgresDB"
     networks:
-      - my-network
+      - shared_network
 
 networks:
-  my-network:
-    driver: bridge
+  shared_network:
+    external: true
 
 volumes:
   pgdata:

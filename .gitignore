@@ -1,6 +1,8 @@
 venv/
+airflowvenv/
 __pycache__/
 *.py[cod]
 *$py.class
 .pytest_cache/
 .vscode/
+logs/
