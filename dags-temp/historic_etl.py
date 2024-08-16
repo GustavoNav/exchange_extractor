@@ -14,16 +14,15 @@ default_args = {
 dag = DAG(
     'historic_etl',
     default_args=default_args,
-    description='A simple DAG that runs pwd command',
+    description='A DAG that runs historic_extractor',
     schedule_interval='@daily',  
 )
 
-# Define a tarefa
-run_pwd = BashOperator(
+run_docker = BashOperator(
     task_id='run_docker',
-    # Coloque o path para o diretório extract_exchange do git.
-    bash_command='cd /home/gustavo/projetos/extract_exchange && docker-compose run --rm app historic_extractor/run.py VALE3.SA',
+    # Coloque o path absoluto para o diretório extract_exchange do git.
+    bash_command='cd /path/extract_exchange && docker-compose run --rm app historic_extractor/run.py VALE3.SA',
     dag=dag,
 )
 
-run_pwd
+run_docker

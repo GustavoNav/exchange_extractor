@@ -15,9 +15,9 @@ Siga as instruções para fazer o ambiente funcionar e se comunicar por completo
 ### data_extractor:
 Aplicação responsável por fazer a coleta de dados. O requeriments.txt possui apenas as configurações necessária para essa parte funcionar individualmente, você pode executar de forma independente utilizando as funções disponíveis no run.py de cada um dos extractors:
 
-- general_information_extractor
-- historic_extractor
-- real_time_extractor
+- general_information_extractor (Por Web Scraping)
+- historic_extractor (Utiliza a API)
+- real_time_extractor (Utiliza a API)
 
 O Dockerfile é para colocar a aplicação em um container (é essencial para funcionar com o docker-compose, caso tente executar separadamente, é preciso configurar um banco de dados, a conexão é feita utilizando sqlalchemy e pode ser ajustada em data_extractor/db , a injeção de dados é individual para cada extractor, e deve ser configurada no repository disponível em data_extractor/nome_do_extractor/db )
 
@@ -48,9 +48,9 @@ Por fim acesse a URL disponibilizada no terminal.
 
 O banco de dados é criado automaticamente ao executar o Docker Compose e é dividido em 3 tabelas:
 
-- **tb_historic**: Armazena dados financeiros da empresa ao longo do tempo. (Utiliza a API)
-- **tb_general_financials**: Armazena dados gerais da empresa ao longo do tempo. (Por Web Scraping)
-- **tb_real_time**: Armazena dados financeiros da empresa ao longo do dia, com intervalo de 1 minuto. (Utiliza a API) 
+- **tb_historic**: Armazena dados financeiros da empresa ao longo do tempo. 
+- **tb_general_financials**: Armazena dados gerais da empresa ao longo do tempo. 
+- **tb_real_time**: Armazena dados financeiros da empresa ao longo do dia, com intervalo de 1 minuto.  
 
 ```sql
 CREATE TABLE IF NOT EXISTS tb_historic (
@@ -142,3 +142,9 @@ Em seguida, mova o conteúdo do diretório dags-temp da raiz para o diretório a
 - real_time_etl.py
 
 Por fim, acesse localhost:8080, faça login com o usuário e senha criados pelo Airflow (informados no terminal), e ative as DAGs para começar a execução.
+
+Caso as Dags não apareçam, encerre o airflow para iniciar novamente:
+
+```
+airflowctl start airflow_project/
+```
