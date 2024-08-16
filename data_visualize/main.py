@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import os
 
-from data_visualize.utils.format import format_number
+from utils.format import format_number
 
     
 # LOAD
