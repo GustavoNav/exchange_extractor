@@ -34,7 +34,7 @@ class HistoricRepository:
                                 :stock_splits,
                                 :company_code
                             )
-                             ON CONFLICT (date_information)
+                             ON CONFLICT (date_information, company_code)
                                 DO NOTHING;;
                         '''),
                         {

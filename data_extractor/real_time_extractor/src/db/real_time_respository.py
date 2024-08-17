@@ -28,7 +28,7 @@ class RealTimeRepository:
                                 :low,
                                 :close
                             )
-                            ON CONFLICT (date_information)
+                            ON CONFLICT (date_information, company_code)
                             DO NOTHING;
                         '''),
                         {
