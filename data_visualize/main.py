@@ -24,6 +24,8 @@ for col in ['open', 'high', 'low', 'close', 'volume']:
 df_historic['date_information'] = pd.to_datetime(df_historic['date_information'], errors='coerce')
 df_historic['date_information'] = df_historic['date_information'].dt.tz_localize(None)
 
+df_general_financials
+
 
 # DASHBOARD
 st.set_page_config(page_title="Análise de Dados Financeiros", layout="wide")

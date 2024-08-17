@@ -19,7 +19,7 @@ dag = DAG(
 run_docker = BashOperator(
     task_id='run_docker',
     # Coloque o path absoluto para o diretório extract_exchange do git.
-    bash_command='cd /path/extract_exchange && docker-compose run --rm app general_information_extractor/run.py https://www.infomoney.com.br/cotacoes/b3/acao/vale-vale3/ VALE3.SA',
+    bash_command='cd /path/extract_exchange && docker-compose run --rm app general_information_extractor/run.py https://www.infomoney.com.br/cotacoes/b3/acao/localiza-rent3/ RENT3.SA',
     dag=dag,
 )
 

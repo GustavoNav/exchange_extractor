@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS tb_historic (
     dividends NUMERIC(14, 6),
     stock_splits NUMERIC(14, 6),
     company_code VARCHAR(10),
-    CONSTRAINT unique_historic UNIQUE (date_information, open, high, low, close, volume, dividends, stock_splits, company_code)
+    CONSTRAINT unique_historic UNIQUE (date_information)
 );
 
 CREATE TABLE IF NOT EXISTS tb_general_financials (
@@ -36,5 +36,5 @@ CREATE TABLE IF NOT EXISTS tb_real_time(
     high NUMERIC(14, 6),
     low NUMERIC(14, 6),
 	close NUMERIC(14, 6),
-	CONSTRAINT unique_real_time UNIQUE (company_code, date_information, open, high, low, close)
+	CONSTRAINT unique_real_time UNIQUE (date_information)
 );
