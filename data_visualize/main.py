@@ -1,121 +1,153 @@
 import streamlit as st
 import pandas as pd
-import os
+import plotly.express as px
+from datetime import datetime, timedelta
 
+from export.transformed_data.data import df_general_financials, df_historic
 from utils.format import format_number
 
+def set_page_config():
+    st.set_page_config(
+        page_title="Sales Dashboard",
+        page_icon=":bar_chart:",
+        layout="wide",
+        initial_sidebar_state="expanded",
+    )
+    st.markdown("<style> footer {visibility: hidden;} </style>", unsafe_allow_html=True)
     
-# LOAD
-base_path = os.path.dirname(os.path.abspath(__file__))
-historic_file_path = os.path.join(base_path, 'export', 'historic.parquet')
-general_financials_file_path = os.path.join(base_path, 'export', 'general_financials.parquet')
-real_time_file_path = os.path.join(base_path, 'export', 'real_time.parquet')
-
-df_historic = pd.read_parquet(historic_file_path)
-df_general_financials = pd.read_parquet(general_financials_file_path)
-df_real_time = pd.read_parquet(real_time_file_path)
-
-
-# TRANSFORMATION
-for col in ['open', 'high', 'low', 'close', 'volume']:
-    if col in df_historic.columns:
-        df_historic[col] = pd.to_numeric(df_historic[col], errors='coerce')
-
-df_historic['date_information'] = pd.to_datetime(df_historic['date_information'], errors='coerce')
-df_historic['date_information'] = df_historic['date_information'].dt.tz_localize(None)
-
-df_general_financials
-
-
-# DASHBOARD
-st.set_page_config(page_title="Análise de Dados Financeiros", layout="wide")
-
-col1, col2 = st.columns([1, 3])
-
-with col1:
-    company_code = st.selectbox('Selecione a empresa', df_historic['company_code'].unique())
+def display_side_bar():
+    st.sidebar.header("Filtros")
     
-
-    general_financials_filtred = df_general_financials[df_general_financials['company_code'] == company_code]
-    general_financials_filtred = general_financials_filtred.reset_index()
+    company_code_unique = st.sidebar.selectbox(
+        'Selecione a Empresa:', df_historic['company_code'].unique(), index=0)
     
-    sector = general_financials_filtred.loc[0, 'sector']
-    sector_html = f'<a>Setor: {sector}</a>'
+    start_date = pd.Timestamp(st.sidebar.date_input(
+        "Data inicial", 
+        value=df_historic['date_information'].min().date(),
+        min_value=df_historic['date_information'].min().date(),
+        max_value=df_historic['date_information'].max().date()
+    ))
     
-    net_sales = general_financials_filtred.loc[0, 'net_sales']
-    net_sales = format_number(int(net_sales))
-    net_sales_html = f'<a>Receita Líquida: {net_sales}</a>'
+    end_date = pd.Timestamp(st.sidebar.date_input(
+        "Data final", 
+        value=df_historic['date_information'].max().date(),
+        min_value=df_historic['date_information'].min().date(),
+        max_value=df_historic['date_information'].max().date()
+    ))
+
+    st.sidebar.markdown('---')
+    st.sidebar.write('Escolha Empresas para Comparar')
+    company_codes = st.sidebar.multiselect(
+        'Selecione as Empresas:', df_historic['company_code'].unique(), default=[df_historic['company_code'].unique()[0]]
+    )
     
-    net_income = general_financials_filtred.loc[0,'net_income']
-    net_income = format_number(int(net_income))
-    net_income_html = f'<a>Lucro Líquido (LL): {net_income}</a>'
+    return company_code_unique, start_date, end_date, company_codes
 
-    net_margin  = general_financials_filtred.loc[0,'net_margin']
-    net_margin_html = f'<a>Margem líquida: {net_margin}%</a>'
+def display_charts(company_code, start_date, end_date):
 
-    ebitda = general_financials_filtred.loc[0, 'ebitda']
-    ebitda = format_number(int(ebitda))
-    ebitda_html = f'<a>EBITDA: {ebitda}</a>'
+    start_date = pd.Timestamp(start_date).tz_localize('UTC')
+    end_date = pd.Timestamp(end_date).tz_localize('UTC')
+    
+    filtered_df = df_historic[
+        (df_historic['company_code'] == company_code) &
+        (df_historic['date_information'] >= start_date) &
+        (df_historic['date_information'] <= end_date)
+    ]
+    
+    fig = px.area(
+        filtered_df, 
+        x='date_information', 
+        y='open', 
+        title="Valor de Abertura ao Longo do Tempo",
+        labels={'open': 'Valor de Abertura', 'date_information': 'Data'},
+        width=900, 
+        height=500
+    )
+    st.plotly_chart(fig, use_container_width=True)
 
-    ebitda_margin = general_financials_filtred.loc[0, 'ebitda_margin']
-    ebitda_margin_html = f'<a>Margem EBITDA: {ebitda_margin}%</a>'
+def display_charts_multiple(company_codes, start_date, end_date):
+    st.markdown('---')
+    st.write('Compararação entre Empresas')
 
-    total_assets = general_financials_filtred.loc[0, 'total_assets']
-    total_assets = format_number(int(total_assets))
-    total_assets_html = f'<a>Ativos Totais: {total_assets}</a>'
+    start_date = pd.Timestamp(start_date).tz_localize('UTC')
+    end_date = pd.Timestamp(end_date).tz_localize('UTC')
 
-    gross_debt = general_financials_filtred.loc[0, 'gross_debt']
-    gross_debt = format_number(int(gross_debt))
-    gross_debt_html = f'<a>Dívida Bruta: {gross_debt}</a>'
+    filtered_df = df_historic[
+        (df_historic['company_code'].isin(company_codes)) &
+        (df_historic['date_information'] >= start_date) &
+        (df_historic['date_information'] <= end_date)
+    ]
 
-    equity = general_financials_filtred.loc[0, 'equity']
-    equity = format_number(int(equity))
-    equity_html = f'<a>Patrimônio Líquido: {equity}</a>'
+    col1, col2 = st.columns([4,6])
 
-    pe_ratio = general_financials_filtred.loc[0, 'pe_ratio']
-    pe_ratio_html = f'<a>Relação P/L: {pe_ratio}</a>'
+    with col1:
+        volume_by_company = filtered_df.groupby('company_code')['volume'].sum().reset_index()
 
-    st.html(sector_html)
-    st.html(net_sales_html)
-    st.html(net_income_html)
-    st.html(net_margin_html)
-    st.html(ebitda_html)
-    st.html(ebitda_margin_html)
-    st.html(total_assets_html)
-    st.html(gross_debt_html)
-    st.html(equity_html)
-    st.html(pe_ratio_html)
+        fig_pie = px.pie(
+            volume_by_company, 
+            values='volume', 
+            names='company_code',
+            title='Distribuição de Volume por Empresa',
+            width=300,
+            height=500
+        )
+        st.plotly_chart(fig_pie, use_container_width=True)
+    
+    with col2:
+        last_7_days_start = datetime.now() - timedelta(days=7)
+        last_7_days_start = pd.Timestamp(last_7_days_start).tz_localize('UTC')
+        
+        recent_df = filtered_df[
+            filtered_df['date_information'] >= last_7_days_start
+        ]
+        
+        volume_last_7_days = recent_df.groupby('company_code')['volume'].sum().reset_index()
+        
+        fig_bar = px.bar(
+            volume_last_7_days,
+            x='company_code',
+            y='volume',
+            title='Volume Total por Empresa nos Últimos 7 Dias',
+            labels={'company_code': 'Empresa', 'volume': 'Volume Total'},
+            width=300,
+            height=460
+        )
+        st.plotly_chart(fig_bar, use_container_width=True)
 
-
-df_historic_filtered = df_historic[df_historic['company_code'] == company_code].copy()
-df_historic_filtered.set_index('date_information', inplace=True)
-df_historic_filtered = df_historic_filtered.sort_index()
-
-start_date = df_historic_filtered.index.min()
-end_date = df_historic_filtered.index.max()
-
-with col2:
-    selected_dates = st.slider(
-        'Selecione o intervalo de datas',
-        min_value=start_date.date(),
-        max_value=end_date.date(),
-        value=(start_date.date(), end_date.date()),
-        format='DD/MM/YYYY'
+    fig_area = px.area(
+        filtered_df, 
+        x='date_information', 
+        y='open', 
+        color='company_code',  
+        title="Valor de Abertura ao Longo do Tempo",
+        labels={'open': 'Valor de Abertura', 'date_information': 'Data'},
+        width=500, 
+        height=00
     )
 
-    start_date_selected = pd.Timestamp(selected_dates[0])
-    end_date_selected = pd.Timestamp(selected_dates[1] )
+    st.plotly_chart(fig_area, use_container_width=True)
 
-    if start_date_selected < start_date:
-        start_date_selected = start_date
-    if end_date_selected > end_date:
-        end_date_selected = end_date
+def show_metrics(company_code):
+    df_general_financials_filtred = df_general_financials[df_general_financials['company_code'] == company_code]
+
+    col1, col2, col3 = st.columns(3)
+
+    with col1:
+        st.metric('Receita Líquida', format_number(df_general_financials_filtred['net_sales'].values[0]))
+        
+    with col2:
+        st.metric('Lucro Líquido', format_number(df_general_financials_filtred['net_income'].values[0]))
+
+    with col3:
+        st.metric('Ebitda', format_number(df_general_financials_filtred['ebitda'].values[0]))
+
+def main():
+    company_code_unique, start_date, end_date, company_codes = display_side_bar()
+
+    show_metrics(company_code_unique)
+    display_charts(company_code_unique, start_date, end_date)
+    display_charts_multiple(company_codes, start_date, end_date)
     
-    try:
-        df_filtered_for_slider = df_historic_filtered.loc[start_date_selected:end_date_selected]
-        st.subheader('Gráfico de Preços Históricos')
-        st.area_chart(df_filtered_for_slider[['open']])
-    except KeyError as e:
-        st.error(f"Erro ao filtrar dados: {e}")
-
-
+    
+if __name__ == "__main__":
+    main()

@@ -24,7 +24,7 @@ class DatabaseRepository:
         parquet_file_path = os.path.join(base_path, '..', 'export', 'historic.parquet')
         
         df = pd.DataFrame(result.fetchall(), columns=result.keys())
-        
+         
         df.to_parquet(parquet_file_path, index=False)
 
     @classmethod
@@ -47,6 +47,8 @@ class DatabaseRepository:
 
         df = pd.DataFrame(result.fetchall(), columns=result.keys())
         
+        print(df)
+
         df.to_parquet(parquet_file_path, index=False)
 
     @classmethod
