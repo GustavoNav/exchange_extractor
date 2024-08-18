@@ -6,6 +6,8 @@ O **Extract-Exchange** é um projeto dedicado ao estudo de Engenharia de Dados. 
 
 O projeto foi criado seguindo boas praticas de programação, sendo completamente modularizado, cada recurso pode funcionar independete do outro. 
 
+Para testar o resultado no streamlit sem precisar instalar o repositório, acesse: [https://view-exchange-tnthxryusub5cwfncvyhfn.streamlit.app/](https://view-exchange-tnthxryusub5cwfncvyhfn.streamlit.app/)
+
 Siga as instruções para fazer o ambiente funcionar e se comunicar por completo.
 
 ## 🏗️ Arquitetura
