@@ -97,14 +97,19 @@ CREATE TABLE IF NOT EXISTS tb_real_time(
 );
 ```
 ### 1. Configuração do Ambiente
-Na raiz do projeto, execute o seguinte comando para criar e iniciar as imagens e containers Docker:
+É necessário Python 3.10.12 | Docker version 24.0.7 | Docker Compose version v2.29.1 (Pode não funcionar com outras versões)
 
+Primeiro clone o repositório:
+```
+git clone https://github.com/GustavoNav/exchange_extractor
+```
+
+Na raiz do projeto, execute o seguinte comando para criar e iniciar as imagens e containers Docker:
 ```
 docker-compose up --build
 ```
 
 Com isso, os serviços data_extractor e PostgreSQL estarão funcionando. É possível executar as pipelines manualmente com os seguintes comandos:
-
 ```
 docker-compose run --rm app historic_extractor/run.py <CÓDIGO DA EMPRESA>
 
